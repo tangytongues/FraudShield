@@ -35,25 +35,25 @@ models = {
 # Model parameters
 model_params = {
     'logistic_regression': {
-        'C': st.sidebar.slider('C (Regularization)', 0.01, 10.0, 1.0),
-        'max_iter': st.sidebar.slider('Max Iterations', 100, 1000, 100, 100)
+        'C': st.sidebar.slider('C (Regularization)', 0.01, 10.0, 1.0, key='lr_c'),
+        'max_iter': st.sidebar.slider('Max Iterations', 100, 1000, 100, 100, key='lr_max_iter')
     },
     'decision_tree': {
-        'max_depth': st.sidebar.slider('Max Depth', 3, 20, 10),
-        'min_samples_split': st.sidebar.slider('Min Samples Split', 2, 20, 2)
+        'max_depth': st.sidebar.slider('Max Depth', 3, 20, 10, key='dt_max_depth'),
+        'min_samples_split': st.sidebar.slider('Min Samples Split', 2, 20, 2, key='dt_min_samples')
     },
     'random_forest': {
-        'n_estimators': st.sidebar.slider('Number of Trees', 10, 200, 100, 10),
-        'max_depth': st.sidebar.slider('Max Depth', 3, 20, 10),
-        'min_samples_split': st.sidebar.slider('Min Samples Split', 2, 20, 2)
+        'n_estimators': st.sidebar.slider('Number of Trees', 10, 200, 100, 10, key='rf_n_estimators'),
+        'max_depth': st.sidebar.slider('Max Depth', 3, 20, 10, key='rf_max_depth'),
+        'min_samples_split': st.sidebar.slider('Min Samples Split', 2, 20, 2, key='rf_min_samples')
     },
     'svm': {
-        'C': st.sidebar.slider('C (SVM)', 0.01, 10.0, 1.0),
-        'kernel': st.sidebar.selectbox('Kernel', ['linear', 'rbf', 'poly'])
+        'C': st.sidebar.slider('C (SVM)', 0.01, 10.0, 1.0, key='svm_c'),
+        'kernel': st.sidebar.selectbox('Kernel', ['linear', 'rbf', 'poly'], key='svm_kernel')
     },
     'knn': {
-        'n_neighbors': st.sidebar.slider('Number of Neighbors', 1, 20, 5),
-        'weights': st.sidebar.selectbox('Weights', ['uniform', 'distance'])
+        'n_neighbors': st.sidebar.slider('Number of Neighbors', 1, 20, 5, key='knn_n_neighbors'),
+        'weights': st.sidebar.selectbox('Weights', ['uniform', 'distance'], key='knn_weights')
     }
 }
 
@@ -73,7 +73,7 @@ You can select the model type and adjust parameters to optimize performance.
 X, y, _ = prepare_features(df)
 
 # Split the data
-test_size = st.slider('Test Set Size (%)', 10, 40, 20) / 100
+test_size = st.slider('Test Set Size (%)', 10, 40, 20, key='test_size_slider') / 100
 X_train, X_test, y_train, y_test = train_test_data_split(X, y, test_size=test_size)
 
 # Scale the features
@@ -81,14 +81,14 @@ X_train_scaled, X_test_scaled, scaler = scale_features(X_train, X_test)
 
 # Model selection
 st.subheader("Model Selection")
-selected_model = st.selectbox('Select a model', list(models.keys()), format_func=lambda x: models[x])
+selected_model = st.selectbox('Select a model', list(models.keys()), format_func=lambda x: models[x], key='model_selection')
 
 # Display model parameters
 st.subheader("Model Parameters")
 st.write(model_params[selected_model])
 
 # Train the model when user clicks the button
-if st.button('Train Model'):
+if st.button('Train Model', key='train_model_button'):
     with st.spinner('Training model... This may take a moment.'):
         # Record start time
         start_time = time.time()
