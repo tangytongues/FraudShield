@@ -1,0 +1,37 @@
+# Download and Setup Instructions for Fraud Detection System
+
+## Download the Package
+
+1. Download the `fraud_detection_system.zip` file from the Replit interface to your local machine
+
+## Installation on Your Local Machine
+
+1. Extract the ZIP file to a folder on your computer
+
+2. Open a terminal or command prompt and navigate to the extracted folder
+
+3. Install the required packages using pip:
+
+   ```
+   pip install -r requirements.txt
+   ```
+
+4. Run the application:
+
+   ```
+   streamlit run app.py
+   ```
+
+5. The application will start and open in your default web browser at http://localhost:8501
+
+## Using the Application
+
+1. On the main page, select a sample size and click "Load Sample Data"
+2. Use the sidebar to navigate through different pages of the application
+3. Explore the data, build models, and make predictions as described in the application
+
+## Troubleshooting
+
+- If you encounter any issues with package installation, make sure you have Python 3.7 or higher installed
+- If Streamlit doesn't open in your browser automatically, manually navigate to http://localhost:8501
+- For any other issues, refer to the Streamlit documentation at https://docs.streamlit.io
